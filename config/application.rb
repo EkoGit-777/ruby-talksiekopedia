@@ -27,8 +27,7 @@ module RubyRailsPostgres
         resource '*',
           headers: :any,
           methods: [:get, :post, :put, :patch, :delete, :options, :head],
-          expose: ['Authorization'],
-          credentials: false
+          credentials: true
       end
     end
   end
