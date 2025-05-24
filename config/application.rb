@@ -18,11 +18,11 @@ module RubyRailsPostgres
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    
+
     # CORS setup
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*' # Or restrict to specific domain like 'https://your-frontend.com'
+        origins 'https://talksiekopedia.test:8443', 'http://talksi.ekopedia.id' # Or restrict to specific domain like 'https://your-frontend.com'
 
         resource '*',
           headers: :any,
