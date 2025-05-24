@@ -1,18 +1,8 @@
 class RoomsController < ApplicationController
   protect_from_forgery with: :null_session
   def index
-    rooms = Room.where("participant_1_id = ? AND participant_2_id = ?", nil, nil)
-    
-    pusher = Pusher::Client.new(
-      app_id: '1997663',
-      key: '965e719119116a6d8f01',
-      secret: '45c9548b64fa36c02742',
-      cluster: 'ap1',
-      encrypted: true
-    )
+    rooms = Room.where(participant_1_id: nil).where(participant_2_id: nil)
 
-    pusher.trigger('talksiekopedia', 'new-room', {})
-    
     render json: rooms
   end
 
@@ -37,6 +27,15 @@ class RoomsController < ApplicationController
     if(newRoom.errors.full_messages.length > 0)
       render json: newRoom.errors.full_messages
     else
+      pusher = Pusher::Client.new(
+        app_id: '1997663',
+        key: '965e719119116a6d8f01',
+        secret: '45c9548b64fa36c02742',
+        cluster: 'ap1',
+        encrypted: true
+      )
+
+      pusher.trigger('talksiekopedia', 'new-room', {})
       render json: newRoom
     end
   end
