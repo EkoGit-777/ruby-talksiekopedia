@@ -78,7 +78,7 @@ class RoomsController < ApplicationController
 
       pusher.trigger(room.code, 'new-chat', {
         user: user,
-        date: newMessage.created_at,
+        created_at: newMessage.created_at,
         message: message
       })
 
