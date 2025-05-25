@@ -22,7 +22,7 @@ module RubyRailsPostgres
     # CORS setup
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'https://talksiekopedia.test:8443', 'http://talksi.ekopedia.id' # Or restrict to specific domain like 'https://your-frontend.com'
+        origins 'https://talksiekopedia.test:8443', 'https://talksi.ekopedia.id' # Or restrict to specific domain like 'https://your-frontend.com'
 
         resource '*',
           headers: :any,
