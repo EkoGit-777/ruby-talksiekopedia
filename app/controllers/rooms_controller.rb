@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
     code = ''
     participant1 = nil
     participant2 = nil
+    isPrivate = false
     loop do
       code = SecureRandom.urlsafe_base64(16)
       break code unless Room.exists?(:name => code)
@@ -20,6 +21,7 @@ class RoomsController < ApplicationController
     if params.key?(:target)
       participant1 = user.id
       participant2 = params[:target]
+      isPrivate = true
     else
       roomname = params[:name]
     end
@@ -35,7 +37,7 @@ class RoomsController < ApplicationController
         encrypted: true
       )
 
-      pusher.trigger('talksiekopedia', 'new-room', {})
+      pusher.trigger('talksiekopedia', 'new-room', {private: isPrivate})
       render json: newRoom
     end
   end
