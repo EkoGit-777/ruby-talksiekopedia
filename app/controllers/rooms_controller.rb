@@ -61,6 +61,7 @@ class RoomsController < ApplicationController
   def message
     passcode = request.headers["Passcode"]
     user = User.find_by(passcode: passcode)
+    room = Room.find_by(id: params[:room_id])
     message = params[:message]
     newMessage = RoomMessage.create(user_id: user.id, room_id: params[:room_id], message: message)
 
@@ -72,7 +73,7 @@ class RoomsController < ApplicationController
       encrypted: true
     )
 
-    pusher.trigger('talksiekopedia', 'new-chat', {
+    pusher.trigger(room.code, 'new-chat', {
       user: user,
       date: newMessage.created_at,
       message: message
