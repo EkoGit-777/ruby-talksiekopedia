@@ -10,5 +10,6 @@ Rails.application.routes.draw do
 
   get "/rooms", to: "rooms#index"
   post "/room", to: "rooms#create"
-  get "/room/:name", to: "rooms#show"
+  get "/room/:code", to: "rooms#show"
+  post "/chat", to: "rooms#message"
 end
