@@ -2,9 +2,8 @@ class UsersController < ApplicationController
   protect_from_forgery with: :null_session
   def index
     passcode = request.headers["Passcode"]
-    users = User.includes(:rooms_1, :rooms_2).where.not(passcode: passcode).as_json(
-      include: [:rooms_1, :rooms_2]
-    )
+    users = User.includes(:rooms_1, :rooms_2).where.not(passcode: passcode)
+      .as_json(include: [:rooms_1, :rooms_2])
     render json: users
   end
 

@@ -43,7 +43,8 @@ class RoomsController < ApplicationController
   def view
     passcode = request.headers["Passcode"]
     user = User.find_by(passcode: passcode)
-    room = Room.find_by(code: params[:code]).includes(:room_messages).as_json(include: [:room_messages])
+    room = Room.find_by(code: params[:code]).includes(:room_messages, :participant_1, :participant_2)
+      .as_json(include: [:room_messages, :participant_1, :participant_2])
     if room
       if(room.participant_1_id == nil && room.participant_2_id == nil)
         render json: room
