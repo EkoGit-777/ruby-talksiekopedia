@@ -51,8 +51,9 @@ class RoomsController < ApplicationController
       else
         if(room.participant_1_id == user.id || room.participant_2_id == user.id)
           render json: room.as_json(include: [:room_messages, :participant_1, :participant_2])
+        else
+          render json: { error: "Room not found" }, status: :not_found
         end
-        render json: { error: "Room not found" }, status: :not_found
       end
     else
       render json: { error: "Room not found" }, status: :not_found
