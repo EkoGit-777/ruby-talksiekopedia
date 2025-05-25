@@ -40,7 +40,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  def view
+  def show
     passcode = request.headers["Passcode"]
     user = User.find_by(passcode: passcode)
     room = Room.find_by(code: params[:code]).includes(:room_messages, :participant_1, :participant_2)
